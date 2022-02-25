@@ -1,0 +1,21 @@
+﻿@using WhatTo.Data;
+@using Microsoft.AspNetCore.Mvc.RazorPages
+
+@model PageModel
+@inject ApplicationDbContext db
+
+@{
+    int id = Convert.ToInt32(Context.Request.Path.ToString().Split("/").Last());
+    Review review = await db.Reviews.FindAsync(id);
+}
+
+<div>
+    <h2>@review.Name</h2>
+    <h4>@review.Category</h4>
+    <div>
+        @Html.Raw(review.Text)
+    </div>
+    <div>
+        @review.Rating
+    </div>
+</div>

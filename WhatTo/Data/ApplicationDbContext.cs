@@ -7,12 +7,13 @@ using WhatTo.Models;
 
 namespace WhatTo.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+        public DbSet<Review> Reviews { get; set; }
         public DbSet<Picture> Pictures { get; set; }
     }
 }

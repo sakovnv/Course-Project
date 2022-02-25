@@ -42,7 +42,7 @@ namespace WhatTo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile file, string reviewName)
+        public async Task<IActionResult> Create(IFormFile file, string reviewName, string reviewCategory, string reviewText, short reviewRating)
         {
             if (file != null && file.Length > 0)
             {
@@ -67,7 +67,10 @@ namespace WhatTo.Controllers
                 }
                 ViewData["FileLocation"] = filePath;
             }
-            return View("../Home/Index");
+            Review review = new Review { Name = reviewName, Category = reviewCategory, Text = reviewText, Rating = reviewRating };
+            db.Reviews.Add(review);
+            await db.SaveChangesAsync();
+            return RedirectToRoute(new { controller="Review", action="Index", id=db.Reviews.Count() });
         }
 
         public IActionResult ChangeTheme()

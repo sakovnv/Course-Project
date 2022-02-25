@@ -1,5 +1,6 @@
 ﻿@model WhatTo.Models.Review
-
+@using WhatTo.Data;
+@inject ApplicationDbContext db;
 @{
     ViewData["Title"] = "View";
 }
@@ -12,17 +13,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Name of review</label>
-                <input asp-for="Name" name="reviewName" class="form-control"/>
+                <input asp-for="Name" name="reviewName" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <input asp-for="Category"name="reviewCategory" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
-                <textarea asp-for="Text" id="text-review" class="form-control"></textarea>
+                <textarea asp-for="Text" name="reviewText" id="text-review" class="form-control"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -31,15 +32,15 @@
                 </div>
                 <div class="rating">
                     <div class="rating-items">
-                        <input id="rating-5" type="radio" class="rating-item" name="rating" value="5" />
+                        <input id="rating-5" type="radio" class="rating-item" name="reviewRating" value="5" />
                         <label for="rating-5" class="rating-label"></label>
-                        <input id="rating-4" type="radio" class="rating-item" name="rating" value="4" />
+                        <input id="rating-4" type="radio" class="rating-item" name="reviewRating" value="4" />
                         <label for="rating-4" class="rating-label"></label>
-                        <input id="rating-3" type="radio" class="rating-item" name="rating" value="3" />
+                        <input id="rating-3" type="radio" class="rating-item" name="reviewRating" value="3" />
                         <label for="rating-3" class="rating-label"></label>
-                        <input id="rating-2" type="radio" class="rating-item" name="rating" value="2" />
+                        <input id="rating-2" type="radio" class="rating-item" name="reviewRating" value="2" />
                         <label for="rating-2" class="rating-label"></label>
-                        <input id="rating-1" type="radio" class="rating-item" name="rating" value="1" />
+                        <input id="rating-1" type="radio" class="rating-item" name="reviewRating" value="1" />
                         <label for="rating-1" class="rating-label"></label>
                     </div>
                 </div>

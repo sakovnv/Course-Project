@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using WhatTo.Data;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject ApplicationDbContext db
 
 @{
     ViewData["Title"] = "Home Page";
@@ -15,22 +17,24 @@
 {
     <div>
         <div class="text-right">
-            <a class="btn btn-primary" role="button" id="create-review-btn" asp-controller="Home" asp-action="CreateReview">Create review</a>
+            <a class="btn btn-secondary btn-lg" role="button" id="create-review-btn" asp-controller="Home" asp-action="CreateReview">Create review</a>
         </div>
     </div>
-    <div>@ViewData["FileLocation"]"</div>
 }
 <p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Link with href
-    </a>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Button with data-target
-    </button>
+    @for (int i = db.Reviews.Count() - 1; i >= 0; i--)
+    {
+        <div class="text-center review-link">
+            <a class="btn btn-secondary btn-lg btn-block review-btn" role="button" asp-controller="Review" asp-action="Index" asp-route-id=@(i + 1) >
+                <div class="review-btn-justify">
+                    <div class="topic-btn-name">    
+                        @db.Reviews.ToArray()[i].Name
+                    </div>
+                    <div class="topic-btn-category">
+                        @db.Reviews.ToArray()[i].Category
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
 </p>
-<div class="collapse" id="collapseExample">
-    <div class="card card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-    </div>
-</div>
-

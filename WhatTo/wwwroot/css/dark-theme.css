@@ -81,3 +81,17 @@ footer
     outline: 0;
     box-shadow: 0 0 3px 0.2rem #80bdff30;
 }
+
+.btn-secondary {
+    color: #404040;
+    background-color: #b3b3b3;
+    border-color: #b3b3b3;
+}
+
+.review-btn {
+    box-shadow: #ffffff 0px 0px 4px;
+}
+
+.review-btn:hover {
+    box-shadow: #5a6268 0px 0px 5px;
+}

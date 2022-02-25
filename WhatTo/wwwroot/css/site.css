@@ -151,3 +151,20 @@ body {
 {
     color: forestgreen;
 }
+
+.review-btn 
+{
+    margin: 1% 0%;
+    box-shadow: #000 0px 0px 4px;
+}
+
+.review-btn-justify
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.review-btn-justify div {
+    width: 50%;
+}
