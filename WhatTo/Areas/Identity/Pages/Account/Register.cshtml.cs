@@ -79,7 +79,7 @@ namespace WhatTo.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email, Nickname = Input.Nickname};
+                var user = new User { UserName = Input.Email, Email = Input.Email, Nickname = Input.Nickname, RegistrationTime = DateTime.Now };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

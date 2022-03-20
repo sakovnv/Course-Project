@@ -1,0 +1,39 @@
+﻿@using System.Globalization;
+
+@{ 
+    Array.Reverse(ViewBag.SearchResult);
+}
+
+<h1>Search results: @ViewBag.SearchQuery</h1>
+
+<div class="container">
+    <hr>
+    <div class="result-list">
+        @foreach (Review item in ViewBag.SearchResult)
+        {
+        <a asp-controller="Review" asp-action="Index" asp-route-id="@item.Id">
+            <div class="review-min">
+                <div class="review-min-header review-field-header">
+                    <h1>@item.Name</h1>
+                    <div class="review-field-header-info text-right">
+                        <span class="under-header">
+                            Author: <span class="under-header-author"> @item.Author, </span>
+                            @item.PostingTime.ToString("d", CultureInfo.GetCultureInfo("en-US")),
+                            Category: @item.Category
+                        </span>
+                    </div>
+                </div>
+                <div class="review-field-text review-min-text-block">
+                    <div class="">
+                        @Html.Raw(item.Text)
+                    </div>
+                </div>
+            </div>
+        </a>
+        }
+        @if (ViewBag.SearchResult.Length == 0)
+        {
+            <h1>Unfortunately nothing found. Try again</h1>
+        }
+    </div>
+</div>

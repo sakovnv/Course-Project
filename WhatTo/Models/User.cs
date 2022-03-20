@@ -8,7 +8,13 @@ namespace WhatTo.Models
 {
     public class User : IdentityUser
     {
+        public User()
+        {
+            Reviews = new List<Review>();
+        }
         public string Nickname { get; set; }
-        public int ReviewsCount { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public DateTime LastLoginTime { get; set; }
+        public DateTime RegistrationTime { get; set; }
     }
 }

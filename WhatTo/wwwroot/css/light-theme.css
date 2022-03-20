@@ -14,8 +14,9 @@
 }
 
 .navbar {
-    color: #000;
+    color: #555555;
     box-shadow: 0 -2px 8px #555;
+    text-shadow: 0 0 1px #555555a0;
 }
 
 .navbar a {
@@ -27,4 +28,22 @@
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
+}
+
+/*.review-result-header {
+    background: #0366d620;
+    padding: 1% 1.5%;
+    border-radius: 10px;
+    margin: 0 0 1%;
+}
+
+.review-result-text {
+    background: #0366d630;
+
+}
+*/
+
+.profile-header {
+    background: #ff780025;
+    box-shadow: 0 0 10px #66666620;
 }

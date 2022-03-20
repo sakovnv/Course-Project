@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using WhatTo.Models;
+using System.Diagnostics;
 
 namespace WhatTo.Areas.Identity.Pages.Account
 {
@@ -85,6 +86,10 @@ namespace WhatTo.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    User user = await _userManager.FindByEmailAsync(Input.Email);
+                    user.LastLoginTime = DateTime.Now;
+                    await _userManager.UpdateAsync(user);
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

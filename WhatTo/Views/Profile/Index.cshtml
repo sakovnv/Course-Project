@@ -1,0 +1,68 @@
+﻿@using System.Globalization;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore;
+@using WhatTo.Data;
+
+@inject UserManager<User> userManager
+@inject ApplicationDbContext db
+
+@{
+    User user = await userManager.FindByEmailAsync(User.Identity.Name);
+
+}
+
+<div class="container">
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <a href="#">
+                    <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="avatar" width="250" height="250" />
+                </a>
+            </div>
+            <div class="profile-info text-muted">
+                <h2>@user.Nickname</h2>
+                <ul>
+                    <li>
+                        <h6>Publication amount</h6>
+                        @db.Users.Include(item => item.Reviews).Where(item => item.Nickname == user.Nickname).First().Reviews.Count()
+                    </li>
+                    <li>
+                        <h6>Last login</h6>
+                        @user.LastLoginTime.ToString("g")
+                    </li>
+                    <li>
+                        <h6>Registration</h6>
+                        @user.RegistrationTime.ToString("d")
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="profile-content content text-muted">
+            @{
+                foreach (Review item in user.Reviews.Reverse())
+                {
+                    <div class="review-min">
+                        <a asp-controller="Review" asp-action="Index" asp-route-id="@item.Id">
+                            <div class="review-min-header review-field-header">
+                                <h1>@item.Name</h1>
+                                <div class="review-field-header-info text-right">
+                                    <span class="under-header">
+                                        Author: <span class="under-header-author"> @item.Author, </span>
+                                        @item.PostingTime.ToString("d", CultureInfo.GetCultureInfo("en-US")),
+                                        Category: @item.Category
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="review-field-text review-min-text-block">
+                                <div class="">
+                                    @Html.Raw(item.Text)
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>

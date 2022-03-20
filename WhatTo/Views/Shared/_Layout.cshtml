@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WhatTo</title>
+    <!-- Font awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+    <!-- MDB -->
+    @*<link href="~/lib/mdb/mdb.min.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     @if (Context.Request.Cookies["theme"] == null)
@@ -25,11 +33,20 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
+            <div class="navbar-collapse collapse">
+                <form asp-controller="Search" asp-action="Index" method="post">
+                    <div class="form-group has-search search d-inline-block">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input type="text" class="form-control" name="searchQuery" placeholder="Search">
+                    </div>
+                    <input type="hidden" value="" />
+                </form>
+            </div>
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">What To</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="fas fa-bars"></i>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
@@ -39,21 +56,21 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item" id="dark-mode-switch">
-                            <div class="custom-control custom-switch text-center nav-link">
-                                @if (Context.Request.Cookies["theme"] == "dark")
-                                {
-                                    <input type="checkbox" asp-action="/Home/ChangeTheme" class="custom-control-input" checked id="DarkModeSwitch">
-                                }
-                                else
-                                {
-                                    <input type="checkbox" asp-action="/Home/ChangeTheme" class="custom-control-input" id="DarkModeSwitch">
-                                }
-                                <label class="custom-control-label" for="DarkModeSwitch">Dark mode</label>
-                            </div>
-                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
+                </div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <div class="custom-control custom-switch mode-switcher">
+                    @if (Context.Request.Cookies["theme"] == "dark")
+                    {
+                        <input type="checkbox" asp-action="/Home/ChangeTheme" class="custom-control-input" checked id="dark-mode-switch">
+                    }
+                    else
+                    {
+                        <input type="checkbox" asp-action="/Home/ChangeTheme" class="custom-control-input" id="dark-mode-switch">
+                    }
+                    <label class="custom-control-label" for="dark-mode-switch">Dark mode</label>
                 </div>
             </div>
         </nav>

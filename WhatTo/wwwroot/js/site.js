@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-var darkModeSwitcher = document.getElementById("DarkModeSwitch");
+var darkModeSwitcher = document.getElementById("dark-mode-switch");
 var cookies = document.cookie;
 
 darkModeSwitcher.onchange = function()
@@ -19,5 +19,6 @@ darkModeSwitcher.onchange = function()
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    var editor = CKEDITOR.replace('text-review');
+    var editorComment = CKEDITOR.replace("comment-input-textarea")
+    var editorReviewText = CKEDITOR.replace("review-text-input");
 });

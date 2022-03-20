@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhatTo.Data;
 
 namespace WhatTo.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220310203731_add-FileUrls")]
+    partial class addFileUrls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,12 +248,7 @@ namespace WhatTo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
                 });
@@ -295,9 +292,6 @@ namespace WhatTo.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastLoginTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -323,9 +317,6 @@ namespace WhatTo.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("RegistrationTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("ReviewsCount")
                         .HasColumnType("int");
@@ -420,15 +411,6 @@ namespace WhatTo.Migrations
                         .HasForeignKey("ReviewId");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Review", b =>
-                {
-                    b.HasOne("WhatTo.Models.User", "User")
-                        .WithMany("Reviews")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WhatTo.Models.Tag", b =>
                 {
                     b.HasOne("WhatTo.Models.Review", null)
@@ -445,11 +427,6 @@ namespace WhatTo.Migrations
                     b.Navigation("FileUrls");
 
                     b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("WhatTo.Models.User", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

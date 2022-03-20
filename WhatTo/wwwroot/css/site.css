@@ -15,6 +15,10 @@ a {
 .btn-primary {
 }
 
+.btn {
+    text-transform: unset;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 }
 
@@ -44,6 +48,27 @@ button.accept-policy {
   line-height: inherit;
 }
 
+.search
+{
+    margin: 0;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -55,6 +80,11 @@ body {
     /* Margin bottom by footer height */
     background: #f3f3f3;
     margin-bottom: 60px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #666666;
+    margin: 0;
 }
 
 .footer {
@@ -79,10 +109,32 @@ body {
     text-shadow: 0 0 1px #555555a0;
 }
 
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #565656;
+    background-color: #666666;
+}
+
 #dark-mode-switch
 {
-    position: absolute;
+    position: relative;
     right: 10px;
+}
+
+.mode-switcher {
+    width: 13em;
+    padding: 0;
+    text-align: right;
+    margin-left: 1em;
+    display: inline-block;
+}
+
+.collapsing > .mode-switcher {
+    width: auto;
+}
+
+.show > .mode-switcher {
+    width: auto;
 }
 
 #create-review-btn
@@ -154,7 +206,7 @@ body {
 
 .review-btn 
 {
-    margin: 1% 0%;
+    margin: 2% 0%;
     box-shadow: #000 0px 0px 4px;
 }
 
@@ -166,5 +218,211 @@ body {
 }
 
 .review-btn-justify div {
-    width: 50%;
+    width: 25%;
+}
+
+.review-content
+{
+    margin: 5% 0 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh;
+    justify-content:space-between;
+}
+
+.review-field {
+    margin-bottom: 10%;
+    border-bottom: 2px solid #aaaaaa30;
+}
+
+.review-field-header {
+    color: #666666;
+    border-radius: 10px;
+    margin: 0 0 3%;
+    padding: 1% 10%;
+    background: #0366d620;
+    box-shadow: 0 0 5px #0366d630;
+}
+
+.under-header {
+    color: #777777;
+}
+
+.under-header-author {
+    color: #555555;
+    font-weight: bold;
+}
+
+.review-field-text {
+    color: #666666;
+    border-radius: 10px;
+    margin: 2% 0;
+    padding: 2% 5%;
+    background: #0366d630;
+    box-shadow: 0 0 5px #0366d630;
+}
+
+.review-field-rating {
+    margin: 3%
+}
+
+.review-min {
+    margin: 3% 0;
+    transition: box-shadow .3s;
+}
+
+.review-min:hover {
+    margin: 3% 0;
+    box-shadow: 0 0 50px #aaaaaa70;
+    border-radius: 10px;
+    transition: box-shadow .3s;
+}
+
+.review-min-header {
+    background: #0366d610;
+    padding: 1% 1.5%;
+    border-radius: 10px 10px 0 0;
+    margin: 0%;
+}
+
+
+.review-min-text-block {
+    font-size: 12px;
+    margin: 0;
+    padding: 1%;
+    max-height: 200px;
+    border-radius: 0 0 10px 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+
+.review-min-text-block::-webkit-scrollbar {
+    display: none;
+}
+
+
+.review-min h1 {
+    font-size: 2rem;
+}
+
+.review-min > a {
+    text-decoration: none;
+}
+
+.comments-field {
+    color: #555555;
+    font-weight: bold;
+}
+
+.comment-input-field {
+    box-shadow: 0 0 10px #00000020;
+}
+
+.comment
+{
+    background: #33333340;
+    box-shadow: 0 0 8px #33333340;
+    border-radius: 2px;
+}
+
+.comment-header
+{
+    padding: 1% 5%;
+    border-bottom: 2px solid #55555530;
+    background: #33333320;
+    text-shadow: 0 0 10px #fff;
+}
+
+.span-align-right {
+    float: right;
+}
+
+.comment-text
+{
+    padding: 2% 5%;
+    margin-bottom: 4%;
+    font-weight: 100;
+    text-shadow: 0 0 1px #000;
+
+}
+
+.comment-text p {
+    margin: 0;
+}
+
+.profile-header {
+    display: flex;
+    position: relative;
+    padding: 3% 5%;
+    border-radius: 5px;
+}
+
+.profile-avatar {
+    float: left;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 5%;
+    padding-top: 2% ;
+    justify-content: space-between;
+}
+
+.profile-info ul {
+    padding: 0;
+}
+
+.profile-info li {
+    margin: 2%;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.profile-avatar img {
+    border: 1px solid #00000050;
+}
+
+.profile-description ul {
+    vertical-align: bottom;
+}
+
+#dropArea {
+    border: 2px dashed #555555;
+    text-align: center;
+    padding: 10% 0;
+    color: #888888;
+    background: #4cff0020;
+    text-transform: lowercase;
+    transition: .1s;
+}
+
+.active-drop {
+    background: #4cff0070 !important;
+    transition: .1s;
+}
+
+.profile-content > .card {
+    margin: 5%;
+}
+
+.profile-content > .card > .card-body {
+    background: #0366d630;
+    box-shadow: 0 0 5px #0366d630;
+}
+
+.profile-content > .card {
+    box-shadow: 0 0 15px #66666620;
+}
+
+.profile-content > .card > .card-header {
+    background: #55555550;
+    box-shadow: 0 0 15px #66666620;
+}
+
+.profile-content > .card > .card-footer {
+    background: #55555520;
+    box-shadow: 0 0 15px #66666620;
 }
