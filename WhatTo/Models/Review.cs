@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WhatTo.Models
+namespace Project.Models
 {
 
     public class Review
@@ -39,8 +39,8 @@ namespace WhatTo.Models
         [Range(1, 5, ErrorMessage = "The rate must be choosen")]
         public short Rating { get; set; }
         public DateTime PostingTime { get; set; }
-
-        public ICollection<Tag> Tags { get; set; }
+        [Required(ErrorMessage = "The field must be set")]
+        public List<Tag> Tags { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 
@@ -51,6 +51,6 @@ namespace WhatTo.Models
     {
         public int Id { get; set; }
         public int ReviewId { get; set; }
-        public string Tags { get; set; }
+        public string Item { get; set; }
     }
 }

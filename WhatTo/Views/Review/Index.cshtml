@@ -1,4 +1,4 @@
-﻿@using WhatTo.Data;
+﻿@using Project.Data;
 @using System.Globalization;
 @using Microsoft.EntityFrameworkCore;
 @using Microsoft.AspNetCore.Identity
@@ -8,7 +8,7 @@
 
 @{
     int id = Convert.ToInt32(Context.Request.Path.ToString().Split("/").Last());
-    Review review = db.Reviews.Include(review => review.Comments).Where(review => review.Id == id).First();
+    Review review = db.Reviews.Include(review => review.Comments).Include(review => review.Tags).Where(review => review.Id == id).First();
 }
 <div class="review-content">
     <div class="review-field">
@@ -26,6 +26,12 @@
         </div>
         <div class="review-field-text">
             @Html.Raw(review.Text)
+            <div class="review-tags">
+                @foreach (Tag tag in review.Tags)
+                {
+                    <span class="tag">@tag.Item</span>
+                }
+            </div>
         </div>
         <div class="review-field-rating">
             <h3>Author's assessment: </h3>
@@ -49,6 +55,8 @@
     </div>
     <div>
     </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
     <div class="comments-field">
         <h2>Comments: </h2>
         <hr>
@@ -67,13 +75,11 @@
 
         <form method="post" asp-controller="Review" asp-action="CreateComment" asp-route-id=@id>
             <div class="comment-input-field">
-    @if (SignInManager.IsSignedIn(User))
-    {
                 <textarea id="comment-input-textarea" name="commentText" class="ck-editor text-editor form-control"></textarea>
                 <div class="comment-send">
                     <input type="submit" class="btn btn-secondary btn-lg btn-block" value="Send" />
                 </div>
-    }
             </div>
         </form>
+    }
 </div>

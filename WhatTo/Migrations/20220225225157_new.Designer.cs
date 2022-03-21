@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WhatTo.Data;
+using Project.Data;
 
-namespace WhatTo.Migrations
+namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220225225157_new")]
@@ -156,7 +156,7 @@ namespace WhatTo.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Picture", b =>
+            modelBuilder.Entity("Project.Models.Picture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,7 +174,7 @@ namespace WhatTo.Migrations
                     b.ToTable("Pictures");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Review", b =>
+            modelBuilder.Entity("Project.Models.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -204,7 +204,7 @@ namespace WhatTo.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Tag", b =>
+            modelBuilder.Entity("Project.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,7 +224,7 @@ namespace WhatTo.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.User", b =>
+            modelBuilder.Entity("Project.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -306,7 +306,7 @@ namespace WhatTo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -315,7 +315,7 @@ namespace WhatTo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -330,7 +330,7 @@ namespace WhatTo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,23 +339,23 @@ namespace WhatTo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Tag", b =>
+            modelBuilder.Entity("Project.Models.Tag", b =>
                 {
-                    b.HasOne("WhatTo.Models.Review", null)
+                    b.HasOne("Project.Models.Review", null)
                         .WithMany("Tags")
                         .HasForeignKey("ReviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Review", b =>
+            modelBuilder.Entity("Project.Models.Review", b =>
                 {
                     b.Navigation("Tags");
                 });

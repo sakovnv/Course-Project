@@ -1,4 +1,6 @@
-﻿@using WhatTo.Models 
+﻿@using Project.Areas.Identity.Pages.Account.Manage
+@using Project.Models 
+
 @inject SignInManager<User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

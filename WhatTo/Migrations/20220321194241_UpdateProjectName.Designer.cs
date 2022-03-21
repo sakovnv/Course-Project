@@ -10,8 +10,8 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220226163353_update")]
-    partial class update
+    [Migration("20220321194241_UpdateProjectName")]
+    partial class UpdateProjectName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,6 +182,26 @@ namespace Project.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("Project.Models.FileUrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("FileUrl");
+                });
+
             modelBuilder.Entity("Project.Models.Picture", b =>
                 {
                     b.Property<int>("Id")
@@ -228,7 +248,12 @@ namespace Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
                 });
@@ -240,11 +265,11 @@ namespace Project.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Item")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ReviewId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -272,6 +297,9 @@ namespace Project.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("LastLoginTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -298,8 +326,8 @@ namespace Project.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ReviewsCount")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("RegistrationTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -384,6 +412,22 @@ namespace Project.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Project.Models.FileUrl", b =>
+                {
+                    b.HasOne("Project.Models.Review", null)
+                        .WithMany("FileUrls")
+                        .HasForeignKey("ReviewId");
+                });
+
+            modelBuilder.Entity("Project.Models.Review", b =>
+                {
+                    b.HasOne("Project.Models.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Project.Models.Tag", b =>
                 {
                     b.HasOne("Project.Models.Review", null)
@@ -397,7 +441,14 @@ namespace Project.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("FileUrls");
+
                     b.Navigation("Tags");
+                });
+
+            modelBuilder.Entity("Project.Models.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

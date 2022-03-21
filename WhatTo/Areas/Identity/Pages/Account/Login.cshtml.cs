@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using WhatTo.Models;
+using Project.Models;
 using System.Diagnostics;
 
-namespace WhatTo.Areas.Identity.Pages.Account
+namespace Project.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel

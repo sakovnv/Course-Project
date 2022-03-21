@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace WhatTo.Models.Services
+namespace Project.Models.Services
 {
     public class ImageService
     {

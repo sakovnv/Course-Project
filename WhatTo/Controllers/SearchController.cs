@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WhatTo.Data;
-using WhatTo.Services;
+using Project.Data;
+using Project.Services;
 
-namespace WhatTo.Controllers
+namespace Project.Controllers
 {
     public class SearchController : Controller
     {

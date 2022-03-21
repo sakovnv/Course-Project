@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WhatTo.Models;
+using Project.Models;
 
-namespace WhatTo.Data
+namespace Project.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {

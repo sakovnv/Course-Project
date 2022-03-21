@@ -11,11 +11,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using WhatTo.Data;
-using WhatTo.Models;
-using WhatTo.Models.Services;
+using Project.Data;
+using Project.Models;
+using Project.Models.Services;
 
-namespace WhatTo.Controllers
+namespace Project.Controllers
 {
     public class ReviewController : Controller
     {
@@ -59,13 +59,20 @@ namespace WhatTo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Review review)
+        public async Task<IActionResult> Create(Review review, string Tags)
         {
             User user = await userManager.FindByEmailAsync(User.Identity.Name);
 
+            ICollection<Tag> tags = new List<Tag>();
+            foreach (string item in Tags.Split(' '))
+            {
+                tags.Add(new Tag { Item = item });
+            }
+            
             DateTime time = DateTime.Now;
             review.PostingTime = time;
             review.Author = user.Nickname;
+            review.Tags.AddRange(tags);
             review.FileUrls.AddRange(CurrentFilesUrl);
             user.Reviews.Add(review);
 

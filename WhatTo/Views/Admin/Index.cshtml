@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore;
+@using Project.Data;
+
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject ApplicationDbContext db
+
+@if (User.IsInRole("admin"))
+{
+    <div class="container">
+        <div class="content">
+            <table width="100%">
+                <tr align="center">
+                    <th>Nickname</th>
+                    <th>Email</th>
+                    <th>Last login</th>
+                    <th>Registered</th>
+                    <th>Reviews count</th>
+                    <th> </th>
+                </tr>
+                @foreach (var user in db.Users.Include(item => item.Reviews))
+                {
+                    <tr align="center">
+                        <td>@user.Nickname</td>
+                        <td>@user.Email</td>
+                        <td>@user.LastLoginTime</td>
+                        <td>@user.RegistrationTime</td>
+                        <td>@user.Reviews.Count</td>
+                        <td>
+                            <a class="btn-secondary btn" asp-controller="Profile" asp-action="Index" asp-route-id="@user.Id">Check their page</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}

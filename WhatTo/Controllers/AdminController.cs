@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project.Controllers
 {
-    public class ProfileController : Controller
+    public class AdminController : Controller
     {
         public IActionResult Index()
         {

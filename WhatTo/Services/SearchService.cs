@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WhatTo.Data;
-using WhatTo.Interfaces;
-using WhatTo.Models;
+using Project.Data;
+using Project.Interfaces;
+using Project.Models;
 
-namespace WhatTo.Services
+namespace Project.Services
 {
     public class SearchService : ISearch
     {
@@ -16,19 +16,17 @@ namespace WhatTo.Services
         {
             db = _db;
         }
-        public IEnumerable<Comment> GetComments(string searchQuery)
-        {
-            IEnumerable<Review> reviews = db.Reviews.Include(review => review.Comments)
-                .Where(review => review.Comments.Where(comment => comment.Text.Contains(searchQuery)).Count() > 0);
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Review> GetReviews(string searchQuery)
         {
             IEnumerable<Review> reviews = db.Reviews
                 .Include(review => review.Comments)
                 .Include(review => review.FileUrls)
-                .Where(review => review.Text.Contains(searchQuery) || review.Name.Contains(searchQuery));
+                .Where(review => review.Text.Contains(searchQuery) 
+                    || review.Name.Contains(searchQuery) 
+                    || review.Comments.Any(comment => comment.Text.Contains(searchQuery))
+                    || review.Tags.Any(tag => tag.Item.Contains(searchQuery)));
+
             return reviews;
         }
     }

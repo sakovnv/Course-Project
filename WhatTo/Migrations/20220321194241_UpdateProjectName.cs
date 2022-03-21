@@ -2,7 +2,7 @@
 
 namespace Project.Migrations
 {
-    public partial class UpdateReviewModel : Migration
+    public partial class UpdateProjectName : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

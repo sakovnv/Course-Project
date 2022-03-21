@@ -1,13 +1,15 @@
 ﻿@using System.Globalization;
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore;
-@using WhatTo.Data;
+@using Project.Data;
 
 @inject UserManager<User> userManager
 @inject ApplicationDbContext db
 
 @{
-    User user = await userManager.FindByEmailAsync(User.Identity.Name);
+
+    string id = Context.Request.Path.ToString().Split("/").Last();
+    User user = db.Users.Include(item => item.Reviews).Where(item => item.Id == id).First();
 
 }
 

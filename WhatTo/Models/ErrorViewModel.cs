@@ -1,6 +1,6 @@
 using System;
 
-namespace WhatTo.Models
+namespace Project.Models
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WhatTo.Migrations
+namespace Project.Migrations
 {
     public partial class updateuser : Migration
     {

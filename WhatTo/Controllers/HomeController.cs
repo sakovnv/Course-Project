@@ -7,14 +7,14 @@ using System.Diagnostics;
 using System.Web;
 using System.Linq;
 using System.Threading.Tasks;
-using WhatTo.Models;
+using Project.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using WhatTo.Data;
+using Project.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 
-namespace WhatTo.Controllers
+namespace Project.Controllers
 {
     public class HomeController : Controller
     {

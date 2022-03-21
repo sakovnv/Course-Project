@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WhatTo.Models;
+using Project.Models;
 
-namespace WhatTo.Interfaces
+namespace Project.Interfaces
 {
     public interface ISearch
     {
         IEnumerable<Review> GetReviews(string searchQuery);
-        IEnumerable<Comment> GetComments(string searchQuery);
     }
 }

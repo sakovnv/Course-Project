@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using WhatTo.Models;
+using Project.Models;
 
-namespace WhatTo.Areas.Identity.Pages.Account.Manage
+namespace Project.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {

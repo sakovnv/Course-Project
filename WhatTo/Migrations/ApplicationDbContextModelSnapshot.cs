@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WhatTo.Data;
+using Project.Data;
 
-namespace WhatTo.Migrations
+namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -154,7 +154,7 @@ namespace WhatTo.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Comment", b =>
+            modelBuilder.Entity("Project.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,7 +180,7 @@ namespace WhatTo.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.FileUrl", b =>
+            modelBuilder.Entity("Project.Models.FileUrl", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,7 +200,7 @@ namespace WhatTo.Migrations
                     b.ToTable("FileUrl");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Picture", b =>
+            modelBuilder.Entity("Project.Models.Picture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -218,7 +218,7 @@ namespace WhatTo.Migrations
                     b.ToTable("Pictures");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Review", b =>
+            modelBuilder.Entity("Project.Models.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -256,18 +256,18 @@ namespace WhatTo.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Tag", b =>
+            modelBuilder.Entity("Project.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Item")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ReviewId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -276,7 +276,7 @@ namespace WhatTo.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.User", b =>
+            modelBuilder.Entity("Project.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -327,9 +327,6 @@ namespace WhatTo.Migrations
                     b.Property<DateTime>("RegistrationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ReviewsCount")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -364,7 +361,7 @@ namespace WhatTo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -373,7 +370,7 @@ namespace WhatTo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -388,7 +385,7 @@ namespace WhatTo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -397,48 +394,48 @@ namespace WhatTo.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", null)
+                    b.HasOne("Project.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Comment", b =>
+            modelBuilder.Entity("Project.Models.Comment", b =>
                 {
-                    b.HasOne("WhatTo.Models.Review", null)
+                    b.HasOne("Project.Models.Review", null)
                         .WithMany("Comments")
                         .HasForeignKey("ReviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WhatTo.Models.FileUrl", b =>
+            modelBuilder.Entity("Project.Models.FileUrl", b =>
                 {
-                    b.HasOne("WhatTo.Models.Review", null)
+                    b.HasOne("Project.Models.Review", null)
                         .WithMany("FileUrls")
                         .HasForeignKey("ReviewId");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Review", b =>
+            modelBuilder.Entity("Project.Models.Review", b =>
                 {
-                    b.HasOne("WhatTo.Models.User", "User")
+                    b.HasOne("Project.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Tag", b =>
+            modelBuilder.Entity("Project.Models.Tag", b =>
                 {
-                    b.HasOne("WhatTo.Models.Review", null)
+                    b.HasOne("Project.Models.Review", null)
                         .WithMany("Tags")
                         .HasForeignKey("ReviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WhatTo.Models.Review", b =>
+            modelBuilder.Entity("Project.Models.Review", b =>
                 {
                     b.Navigation("Comments");
 
@@ -447,7 +444,7 @@ namespace WhatTo.Migrations
                     b.Navigation("Tags");
                 });
 
-            modelBuilder.Entity("WhatTo.Models.User", b =>
+            modelBuilder.Entity("Project.Models.User", b =>
                 {
                     b.Navigation("Reviews");
                 });

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WhatTo.Models;
+using Project.Models;
 
-namespace WhatTo.Areas.Identity.Pages.Account.Manage
+namespace Project.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
