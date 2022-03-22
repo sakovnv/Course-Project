@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,12 @@ namespace Project
             {
                 options.ClientId = Configuration["Authentication:Google:ClientId"];
                 options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            })
+            .AddFacebook(options =>
+            {
+                options.ClientId = Configuration["Authentication:Facebook:AppId"];
+                options.ClientSecret = Configuration["Authentication:Facebook:AppSecret"];
+                options.AccessDeniedPath = "/Identity/Account/Login";
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
