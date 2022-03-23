@@ -14,6 +14,5 @@ namespace Project.Data
         {
         }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<Picture> Pictures { get; set; }
     }
 }

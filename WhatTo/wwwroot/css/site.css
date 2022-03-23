@@ -193,16 +193,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .rating-item:checked,
 .rating-item:checked ~ .rating-label {
-    color: forestgreen;
+    color: #0366d6aa;
 }
 
-
-.rating-label:hover,
-.rating-label:hover ~ .rating-label,
-.rating-label:checked ~ .rating-label:hover 
-{
-    color: forestgreen;
-}
 
 .review-btn 
 {
@@ -264,6 +257,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .review-field-rating {
     margin: 3%
+}
+
+.review-like
+{
+    text-align: right;
+}
+
+.review-like > a {
+    background: #ffffffa0;
+    padding: 4px;
+    border: 1px solid #66666620;
+    border-radius: 10px;
+    text-decoration: none;
 }
 
 .review-min {

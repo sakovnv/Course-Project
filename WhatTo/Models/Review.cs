@@ -19,6 +19,8 @@ namespace Project.Models
             Tags = new List<Tag>();
             Comments = new List<Comment>();
             FileUrls = new List<FileUrl>();
+            Likes = new List<Like>();
+            OverallRating = new List<UsersRating>();
         }
         public int Id { get; set; }
 
@@ -39,18 +41,12 @@ namespace Project.Models
         [Range(1, 5, ErrorMessage = "The rate must be choosen")]
         public short Rating { get; set; }
         public DateTime PostingTime { get; set; }
+
         [Required(ErrorMessage = "The field must be set")]
         public List<Tag> Tags { get; set; }
-
         public ICollection<Comment> Comments { get; set; }
-
         public List<FileUrl> FileUrls { get; set; }
-    }
-
-    public class Tag
-    {
-        public int Id { get; set; }
-        public int ReviewId { get; set; }
-        public string Item { get; set; }
+        public List<Like> Likes { get; set; }
+        public List<UsersRating> OverallRating { get; set; }
     }
 }

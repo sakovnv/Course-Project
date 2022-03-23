@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Project.Data;
 using Project.Models;
 using Project.Models.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project.Controllers
 {
@@ -64,7 +65,7 @@ namespace Project.Controllers
             User user = await userManager.FindByEmailAsync(User.Identity.Name);
 
             ICollection<Tag> tags = new List<Tag>();
-            foreach (string item in Tags.Split(' '))
+            foreach (string item in Tags.Split('|'))
             {
                 tags.Add(new Tag { Item = item });
             }
@@ -96,6 +97,34 @@ namespace Project.Controllers
             db.SaveChanges();
 
             return RedirectToRoute(new { controller = "Review", action = "Index", id = id });
+        }
+
+        public IActionResult AddUsersRating(int usersRating, int reviewId, string userId)
+        {
+            Review review = db.Reviews.Find(reviewId);
+            User user = db.Users.Find(userId);
+
+            UsersRating rating = new UsersRating { RatedUser = user, Rating = usersRating };
+            review.OverallRating.Add(rating);
+
+            db.Reviews.Update(review);
+            db.SaveChanges();
+
+            return RedirectToRoute(new { controller = "Review", action = "Index", id = reviewId });
+        }
+
+        public IActionResult Like(string userId, int reviewId)
+        {
+            Review review = db.Reviews.Find(reviewId);
+            User user = db.Users.Find(userId);
+
+            Like like = new Like { LikedUser = user };
+            review.Likes.Add(like);
+
+            db.Reviews.Update(review);
+            db.SaveChanges();
+
+            return RedirectToRoute(new { controller = "Review", action = "Index", id = reviewId });
         }
     }
 }

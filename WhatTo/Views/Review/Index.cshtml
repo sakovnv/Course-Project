@@ -5,10 +5,36 @@
 
 @inject ApplicationDbContext db
 @inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @{
+    User user = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        user = await UserManager.FindByEmailAsync(User.Identity.Name);
+    }
+
     int id = Convert.ToInt32(Context.Request.Path.ToString().Split("/").Last());
-    Review review = db.Reviews.Include(review => review.Comments).Include(review => review.Tags).Where(review => review.Id == id).First();
+    Review review = db.Reviews
+        .Include(review => review.Comments)
+        .Include(review => review.Tags)
+        .Include(review => review.FileUrls)
+        .Include(review => review.OverallRating)
+            .ThenInclude(rating => rating.RatedUser)
+        .Include(review => review.Likes)
+            .ThenInclude(like => like.LikedUser)
+        .Where(review => review.Id == id).First();
+
+    double sumOfAll;
+    double count;
+    double average = 0;
+    if (review.OverallRating.Count() > 0)
+    {
+
+        sumOfAll = Convert.ToDouble(review.OverallRating.Sum(item => item.Rating));
+        count = Convert.ToDouble(review.OverallRating.Count());
+        average = Math.Round(sumOfAll / count, 1);
+    }
 }
 <div class="review-content">
     <div class="review-field">
@@ -26,10 +52,39 @@
         </div>
         <div class="review-field-text">
             @Html.Raw(review.Text)
+            <div class="review-images">
+                @foreach(FileUrl item in review.FileUrls)
+                {
+                    <img src="@item.Url" width="200" />
+                }
+            </div>
             <div class="review-tags">
                 @foreach (Tag tag in review.Tags)
                 {
                     <span class="tag">@tag.Item</span>
+                }
+            </div>
+            <div class="review-like">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    if (review.Likes.Where(like => like.LikedUser.Email == User.Identity.Name).Count() == 0)
+                    {
+                        <a asp-action="Like" asp-route-userId=@user.Id asp-route-reviewId=@review.Id>
+                            Like <i class="fa fa-heart" aria-hidden="true"></i> @review.Likes.Count
+                        </a>
+                    }
+                    else
+                    {
+                        <a>
+                            Like <i class="fa fa-heart" aria-hidden="true"></i> @review.Likes.Count
+                        </a>
+                    }
+                }
+                else
+                {
+                    <a>
+                        Like <i class="fa fa-heart" aria-hidden="true"></i> @review.Likes.Count
+                    </a>
                 }
             </div>
         </div>
@@ -39,18 +94,46 @@
                 <div class="rating-items">
                     @for (short i = 5; i >= 1; i--)
                     {
-                        @if (review.Rating == i)
-                        {
-                            <input disabled checked type="radio" id="rating-@i" class="rating-item" value=@i />
-                        }
-                        else
-                        {
-                            <input disabled type="radio" id="rating-@i" class="rating-item" value=@i />
-                        }
+                        <input disabled @(review.Rating == i ? "checked" : "") type="radio" id="rating-@i" class="rating-item" value=@i />
                         <label for="rating-@i" class="rating-label"></label>
                     }
                 </div>
             </div>
+            <h3>User's assessment: </h3>
+            <form asp-controller="Review" asp-action="AddUsersRating" method="post">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    IEnumerable<UsersRating> userRating = review.OverallRating.Where(item => item.RatedUser.Email == User.Identity.Name);
+                    <div class="rating">
+                        <h4>Average: @average</h4>
+                        <div class="rating-items">
+                            @for (short i = 5; i >= 1; i--)
+                            {
+                                if (userRating.Count() > 0)
+                                {
+                                    <input disabled @(userRating.First().Rating == i ? "checked" : "")
+                                           type="radio" id="users-rating-@i" name="usersRating" class="rating-item" value=@i />
+                                }
+                                else
+                                {
+                                    <input type="radio" id="users-rating-@i" name="usersRating" class="rating-item" value=@i />
+                                }
+                                <label for="users-rating-@i" class="rating-label"></label>
+                            }
+                        </div>
+                    </div>
+                    <input type="hidden" name="userId" value=@user.Id>
+                    <input type="hidden" name="reviewId" value=@review.Id />
+                    @if (review.OverallRating.Where(item => item.RatedUser.Email == User.Identity.Name).Count() == 0)
+                    {
+                        <input type="submit" class="btn-black" value="confirm" />
+                    }
+                }
+                else
+                {
+                    <h4>Please log in to see</h4>
+                }
+            </form>
         </div>
     </div>
     <div>

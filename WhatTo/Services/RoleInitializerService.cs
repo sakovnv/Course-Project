@@ -18,6 +18,16 @@ namespace Project.Services
                 await roleManager.UpdateAsync(role);
 
             }
+            if (await userManager.FindByNameAsync("admin@admin.ru") == null)
+            {
+                User user = new User { UserName = "admin@admin.ru", Email = "admin@admin.ru", EmailConfirmed = true};
+                await userManager.CreateAsync(user, "123");
+                await userManager.UpdateAsync(user);
+
+                await userManager.AddToRoleAsync(user, "admin");
+
+            }
+
         }
     }
 }
