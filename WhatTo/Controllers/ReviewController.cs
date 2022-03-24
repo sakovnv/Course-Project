@@ -88,7 +88,7 @@ namespace Project.Controllers
         {
             User user = await userManager.FindByEmailAsync(User.Identity.Name);
 
-            Review review = db.Reviews.ToArray()[id - 1];
+            Review review = db.Reviews.Where(review => review.Id == id).First();
 
             Comment comment = new Comment { Author = user.Nickname, Text = commentText, PostingTime = DateTime.Now };
             review.Comments.Add(comment);

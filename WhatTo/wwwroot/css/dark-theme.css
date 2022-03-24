@@ -9,6 +9,10 @@ body
     background-color: #2f2f2f;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #bbbbbb;
+}
+
 .box-shadow 
 {
     box-shadow: 0 0.25rem 0.75rem rgb(255 255 255 / 33%);
@@ -88,10 +92,45 @@ footer
     border-color: #b3b3b3;
 }
 
+.review-field-header {
+    color: #bbbbbb;
+    background: #0366d640;
+}
+
+.under-header {
+    color: #bbbbbb;
+}
+
+.under-header-author {
+    color: #777777;
+}
+
+.review-field-text {
+    color: #dddddd;
+    background: #0366d650;
+}
+
+.review-like {
+    color: #666666;
+}
+
+.tag {
+    color: #888888;
+}
+
 .review-btn {
     box-shadow: #ffffff 0px 0px 4px;
 }
 
 .review-btn:hover {
     box-shadow: #5a6268 0px 0px 5px;
+}
+
+.comment {
+    background: #ffffff90;
+}
+
+.profile-header {
+    background: #ff780025;
+    box-shadow: 0 0 10px #66666620;
 }
